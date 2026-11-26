@@ -47,23 +47,32 @@ export function PageIntro({
     </div>
   )
 }
+// Pages that already show the daytime road photograph close on the dusk scene instead.
+const closingScenes = {
+  road: { src: '/images/nepal-road.webp', focus: 'center 56%' },
+  dusk: { src: '/images/nepal-high-road.webp', focus: '62% 30%' },
+}
 export function CTASection({
   title = 'Ready to drive?',
   href = '/booking',
   label = 'Book Your Car',
+  scene = 'road',
 }: {
   title?: string
   href?: string
   label?: string
+  scene?: keyof typeof closingScenes
 }) {
+  const photo = closingScenes[scene]
   return (
-    <section className="closing-cta on-dark">
+    <section className="closing-cta on-dark" data-scene={scene}>
       <Image
         className="closing-photo"
-        src="/images/nepal-road.webp"
+        src={photo.src}
         alt=""
         fill
         sizes="100vw"
+        style={{ objectPosition: photo.focus }}
       />
       <div className="shell closing-inner">
         <div className="closing-copy" data-reveal>

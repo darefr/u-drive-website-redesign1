@@ -18,11 +18,11 @@
 }
 .hero-media {
   z-index: -2;
-  /* Keeps the slow zoom inside the photograph's own frame. */
-  overflow: hidden;
 }
 .hero-frame {
   display: block;
+  /* Clips the slow zoom to the frame, so it never spills past the panel's fade. */
+  overflow: hidden;
   opacity: 0;
   transition: opacity 0.9s ease;
 }
@@ -52,9 +52,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: clamp(640px, 92svh, 920px);
+  /* Capped against the width too: a tall, narrow hero would crop the cars to a sliver. */
+  min-height: clamp(640px, min(92svh, 72vw), 920px);
   padding-top: calc(var(--header-h) + 28px);
-  padding-bottom: calc(var(--hero-overlap) + 92px);
+  /* Clears the vehicle switcher pinned to the bottom edge, with room to spare on short screens. */
+  padding-bottom: calc(var(--hero-overlap) + 112px);
 }
 .hero-copy {
   max-width: min(64%, 880px);
@@ -151,10 +153,16 @@
     border-color 0.2s,
     color 0.2s;
 }
-.hero-slides button:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--navy);
+.hero-slides button:active {
+  transform: scale(0.94);
+}
+/* Hover fills are limited to hover-capable pointers, so a tap never leaves a button lit. */
+@media (hover: hover) {
+  .hero-slides button:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--navy);
+  }
 }
 .hero-count {
   margin-left: 8px;
@@ -425,7 +433,8 @@
 
 /* ---------- Responsive ---------- */
 
-@media (min-width: 701px) {
+/* Wide hero: the photograph runs behind the copy. Every screen except the stacked ones below. */
+@media (min-width: 1024px), (min-width: 701px) and (orientation: landscape) {
   .hero-frame[data-layout='wide'] img {
     object-position: var(--focus-wide, 70% 60%);
   }
@@ -460,17 +469,23 @@
     padding: 20px 22px 24px;
   }
 }
+/* Below desktop widths the car sits closer to the copy, so the paragraph stays inside the scrimmed column. */
+@media (min-width: 701px) and (max-width: 1179px) {
+  .hero-lead {
+    max-width: min(47ch, 46vw);
+  }
+}
 @media (max-width: 900px) {
   .hero-progress {
     display: none;
   }
 }
-@media (max-width: 700px) {
+/* Stacked hero, for phones and for tablets held upright: the copy sits on solid navy and the car
+   gets its own frame below, so the whole vehicle stays in view. home-hero.tsx repeats this query. */
+@media (max-width: 700px), (max-width: 1023px) and (orientation: portrait) {
   .hero {
-    --hero-overlap: 44px;
-    --hero-photo: min(88vw, 430px);
+    --hero-photo: min(64vw, 560px);
   }
-  /* On phones the copy sits on solid navy and the car gets its own uncropped frame below. */
   .hero-media,
   .hero-scrim {
     inset: auto 0 0;
@@ -478,17 +493,45 @@
   }
   .hero-scrim {
     background:
-      linear-gradient(180deg, var(--navy-deep) 0%, transparent 40%),
-      linear-gradient(0deg, color-mix(in srgb, var(--navy-deep) 88%, transparent) 0%, transparent 46%);
+      linear-gradient(
+        180deg,
+        var(--navy-deep) 0%,
+        color-mix(in srgb, var(--navy-deep) 55%, transparent) 22%,
+        transparent 44%
+      ),
+      linear-gradient(0deg, color-mix(in srgb, var(--navy-deep) 70%, transparent) 0%, transparent 16%);
   }
   .hero-inner {
     min-height: 0;
     justify-content: flex-start;
-    padding-top: calc(var(--header-h) + 20px);
-    padding-bottom: calc(var(--hero-photo) - 28px);
+    /* The vehicle switcher follows the buttons, so it overlaps the sky and never the car. */
+    padding-bottom: calc(var(--hero-photo) - 96px);
   }
   .hero-copy {
     max-width: 100%;
+  }
+  .hero-lead {
+    max-width: 47ch;
+  }
+  .hero-foot {
+    position: static;
+    margin-top: 28px;
+  }
+  .hero-slides button {
+    background: color-mix(in srgb, var(--navy-deep) 55%, transparent);
+  }
+  /* A shallower overlap than on desktop, so the search card stays clear of the car's wheels. */
+  .trip-planner-wrap {
+    margin-top: -24px;
+  }
+}
+@media (max-width: 700px) {
+  .hero {
+    --hero-photo: min(88vw, 430px);
+  }
+  .hero-inner {
+    padding-top: calc(var(--header-h) + 20px);
+    padding-bottom: calc(var(--hero-photo) * 0.74);
   }
   .hero-kicker {
     font-size: 0.75rem;
@@ -519,7 +562,7 @@
     white-space: nowrap;
   }
   .hero-foot {
-    bottom: calc(var(--hero-overlap) + 16px);
+    margin-top: 16px;
     gap: 10px;
   }
   .hero-slides {
@@ -572,7 +615,6 @@
     height: 40px;
   }
   .trip-planner-wrap {
-    margin-top: -44px;
     padding-inline: 14px;
   }
   .trip-planner {

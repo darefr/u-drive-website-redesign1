@@ -480,15 +480,21 @@
 
 /* ---------- Closing call to action ---------- */
 
-.closing-photo {
-  object-position: center 56%;
-}
 .closing-cta::before {
   background: linear-gradient(
     90deg,
     color-mix(in srgb, var(--navy-deep) 93%, transparent) 0%,
     color-mix(in srgb, var(--navy-deep) 72%, transparent) 48%,
     color-mix(in srgb, var(--navy-deep) 38%, transparent) 100%
+  );
+}
+/* The dusk photograph is already dark, so it carries the copy with less scrim. */
+.closing-cta[data-scene='dusk']::before {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--navy-deep) 86%, transparent) 0%,
+    color-mix(in srgb, var(--navy-deep) 50%, transparent) 46%,
+    color-mix(in srgb, var(--navy-deep) 8%, transparent) 100%
   );
 }
 .closing-inner {
@@ -571,14 +577,22 @@
     border-color 0.2s,
     color 0.2s;
 }
-.contact-fab:hover,
 .contact-fab[aria-expanded='true'] {
   border-color: var(--gold);
   background: var(--gold);
   color: var(--navy);
 }
-.contact-fab:hover {
-  transform: translateY(-2px);
+/* Limited to hover-capable pointers, so the button doesn't stay lit after it is closed by touch. */
+@media (hover: hover) {
+  .contact-fab:hover {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--navy);
+    transform: translateY(-2px);
+  }
+}
+.contact-fab:active {
+  transform: scale(0.94);
 }
 .contact-popover {
   width: min(330px, calc(100vw - 36px));
@@ -861,6 +875,15 @@ body:has(dialog[open]) .floating-contact {
   }
   .route h3 {
     margin-top: 4px;
+  }
+  /* The copy spans the full width here, so the scrim holds until past the headline. */
+  .closing-cta[data-scene='dusk']::before {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--navy-deep) 88%, transparent) 0%,
+      color-mix(in srgb, var(--navy-deep) 60%, transparent) 55%,
+      color-mix(in srgb, var(--navy-deep) 14%, transparent) 100%
+    );
   }
   .closing-inner {
     gap: 30px;

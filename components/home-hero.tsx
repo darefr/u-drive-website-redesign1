@@ -6,16 +6,30 @@ import { useRef, useState, type CSSProperties } from 'react'
 import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { lowestRate, money, vehicles, type Vehicle } from '@/lib/fleet'
 
+// Matches the stacked hero breakpoint in drive.css: phones, and tablets held upright.
+const stackedHero = '(max-width: 700px), (max-width: 1023px) and (orientation: portrait)'
+
 function HeroFrame({ vehicle, active, first }: { vehicle: Vehicle; active: boolean; first: boolean }) {
   const { scene } = vehicle
   const alt = active ? scene.alt : ''
+  // Passed to getImageProps, not only set on the <img>, so Next knows the first frame is eager.
+  const delivery = first
+    ? ({ loading: 'eager', fetchPriority: 'high' } as const)
+    : ({ loading: 'lazy' } as const)
   const { props: desktop } = getImageProps({
     src: scene.panorama?.image ?? scene.image,
     alt,
     fill: true,
-    sizes: scene.panorama ? '100vw' : '(max-width: 700px) 100vw, 64vw',
+    sizes: scene.panorama ? '100vw' : '64vw',
+    ...delivery,
   })
-  const { props: mobile } = getImageProps({ src: scene.image, alt, fill: true, sizes: '100vw' })
+  const { props: mobile } = getImageProps({
+    src: scene.image,
+    alt,
+    fill: true,
+    sizes: '100vw',
+    ...delivery,
+  })
   return (
     <picture
       className="hero-frame"
@@ -26,12 +40,9 @@ function HeroFrame({ vehicle, active, first }: { vehicle: Vehicle; active: boole
         { '--focus': scene.focus, '--focus-wide': scene.panorama?.focus } as CSSProperties
       }
     >
-      <source media="(max-width: 700px)" srcSet={mobile.srcSet} sizes={mobile.sizes} />
-      <img
-        {...desktop}
-        loading={first ? 'eager' : 'lazy'}
-        fetchPriority={first ? 'high' : 'auto'}
-      />
+      {/* Unoptimized images have no srcSet, and an empty source would fall back to the panorama. */}
+      <source media={stackedHero} srcSet={mobile.srcSet ?? mobile.src} sizes={mobile.sizes} />
+      <img {...desktop} />
     </picture>
   )
 }

@@ -343,10 +343,15 @@
     border-color 0.2s,
     color 0.2s;
 }
-.gallery-dialog .icon-button:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--navy);
+.gallery-dialog .icon-button:active {
+  transform: scale(0.94);
+}
+@media (hover: hover) {
+  .gallery-dialog .icon-button:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--navy);
+  }
 }
 .model-dossier {
   padding: clamp(22px, 2.4vw, 36px);

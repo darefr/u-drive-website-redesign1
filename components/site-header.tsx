@@ -75,7 +75,7 @@ export function SiteHeader() {
       data-overlay={pathname === '/' && !scrolled}
     >
       <div className="shell masthead-inner">
-        <Brand adaptive />
+        <Brand adaptive={pathname === '/'} />
         <nav className="main-nav" aria-label="Main navigation">
           {navigation
             .filter((n) => !['/faq', '/with-driver'].includes(n.href))

@@ -140,7 +140,7 @@ export default function AboutPage() {
         </div>
         <ContactChannels />
       </section>
-      <CTASection />
+      <CTASection scene="dusk" />
     </main>
   )
 }

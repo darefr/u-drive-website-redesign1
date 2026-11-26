@@ -232,11 +232,17 @@
     border-color 0.2s,
     color 0.2s;
 }
-.rail-controls button:hover:not(:disabled),
-.review-browse button:hover {
-  background: var(--navy);
-  border-color: var(--navy);
-  color: var(--white);
+.rail-controls button:active:not(:disabled),
+.review-browse button:active {
+  transform: scale(0.94);
+}
+@media (hover: hover) {
+  .rail-controls button:hover:not(:disabled),
+  .review-browse button:hover {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+  }
 }
 .rail-controls button:disabled {
   opacity: 0.35;

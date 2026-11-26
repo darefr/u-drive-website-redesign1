@@ -47,7 +47,7 @@ export default function HowItWorksPage() {
           <ProcessTimeline />
         </div>
       </div>
-      <CTASection />
+      <CTASection scene="dusk" />
     </main>
   )
 }

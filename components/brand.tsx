@@ -39,6 +39,7 @@ export function Brand({
           {...logo}
           className={`brand-lockup-image${adaptive ? ' brand-on-dark' : ''}`}
           alt=""
+          loading={adaptive ? 'eager' : 'lazy'}
           unoptimized
         />
       )}
