@@ -1,16 +1,20 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowRight, Check, Copy, Mail, MessageCircle } from 'lucide-react'
+import { ArrowRight, Check, Copy, Mail } from 'lucide-react'
+import { WhatsAppIcon } from './brand'
 import { business, whatsappLink } from '@/lib/fleet'
 
 export function MessageHandoff({
   message,
   subject,
+  sendLabel = 'Continue to WhatsApp',
   onSent,
 }: {
   message: string
   subject: string
+  // Wording of the primary send button, before WhatsApp has been opened.
+  sendLabel?: string
   onSent: () => void
 }) {
   const [opened, setOpened] = useState<'' | 'WhatsApp' | 'email'>('')
@@ -33,14 +37,14 @@ export function MessageHandoff({
         </p>
       </div>
       <a
-        className="action action-gold send-action"
+        className="action action-gold action-lg send-action"
         href={whatsappLink(message)}
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => setOpened('WhatsApp')}
       >
-        <MessageCircle />
-        {opened === 'WhatsApp' ? 'Reopen WhatsApp' : 'Continue to WhatsApp'}
+        <WhatsAppIcon />
+        {opened === 'WhatsApp' ? 'Reopen WhatsApp' : sendLabel}
         <ArrowRight />
       </a>
       <div className="send-alternatives">
@@ -48,10 +52,14 @@ export function MessageHandoff({
           href={`mailto:${business.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`}
           onClick={() => setOpened('email')}
         >
-          <Mail size={16} /> Open email draft
+          <Mail size={16} aria-hidden="true" /> Send by email instead
         </a>
         <button type="button" onClick={copy}>
-          {copied === 'done' ? <Check size={16} /> : <Copy size={16} />}{' '}
+          {copied === 'done' ? (
+            <Check size={16} aria-hidden="true" />
+          ) : (
+            <Copy size={16} aria-hidden="true" />
+          )}{' '}
           {copied === 'done' ? 'Message copied' : 'Copy message'}
         </button>
       </div>

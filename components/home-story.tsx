@@ -45,7 +45,7 @@ export function HomeStory() {
           </div>
           <div className="why-photo-inset">
             <Image
-              src="/images/mountain-tall.webp"
+              src="/images/mountain-mobile.webp"
               alt="A Deepal S05 on a mountain road with snow peaks at sunrise"
               fill
               sizes="(max-width: 900px) 42vw, 18vw"
@@ -55,7 +55,7 @@ export function HomeStory() {
         <div className="why-copy" data-reveal>
           <p className="drive-eyebrow">Why choose U Drive</p>
           <h2 id="why-heading" className="drive-section-title">
-            Kathmandu roots. Open-road possibilities.
+            Kathmandu roots. <span className="whitespace-nowrap">Open-road</span> possibilities.
           </h2>
           <p className="body-copy">
             We’re a Kathmandu-based rental service for people who want to explore Nepal their own

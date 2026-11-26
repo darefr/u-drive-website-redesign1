@@ -143,7 +143,7 @@ export function BookingFlow({
               </button>
             )}
             <button className="action action-gold" type="submit">
-              {step === 0 ? 'Continue to your details' : 'Review booking request'}
+              {step === 0 ? 'Continue to Your Details' : 'Review Booking Request'}
               <ArrowRight />
             </button>
           </div>
@@ -178,8 +178,8 @@ export function BookingFlow({
       </Link>
       <div className="booking-heading">
         <div>
-          <Eyebrow>RENTAL REQUEST</Eyebrow>
-          <h1 className="display section-title">PLAN YOUR DRIVE.</h1>
+          <Eyebrow>Rental request</Eyebrow>
+          <h1 className="display section-title">Plan your drive.</h1>
           <p>
             {initialTrip?.destination
               ? `Your ${initialTrip.destination} itinerary. Choose a car and dates to build your request.`
@@ -187,7 +187,7 @@ export function BookingFlow({
           </p>
         </div>
         <a className="booking-help" href={`tel:${business.phone}`}>
-          <Phone size={17} />
+          <Phone aria-hidden="true" />
           <span>
             Prefer to call?<strong>{business.phoneDisplay}</strong>
           </span>

@@ -23,7 +23,7 @@ export function VehicleSpecs({ vehicle }: { vehicle: Vehicle }) {
         <dl className="model-spec-grid">
           {specs.map(({ label, value, Icon }) => (
             <div key={label}>
-              <Icon size={19} />
+              <Icon size={19} aria-hidden="true" />
               <dt>{label}</dt>
               <dd>{value}</dd>
             </div>
@@ -32,7 +32,7 @@ export function VehicleSpecs({ vehicle }: { vehicle: Vehicle }) {
         <ul className="model-highlights">
           {model.highlights.map((item) => (
             <li key={item}>
-              <Check size={14} />
+              <Check size={14} aria-hidden="true" />
               {item}
             </li>
           ))}

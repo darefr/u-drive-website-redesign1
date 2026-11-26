@@ -13,11 +13,11 @@ export default function PrivacyPage() {
   return (
     <main id="main-content" className="simple-page shell">
       <Link href="/" className="back-link">
-        <ArrowLeft size={16} />
+        <ArrowLeft size={16} aria-hidden="true" />
         Back to home
       </Link>
-      <Eyebrow>YOUR INFORMATION</Eyebrow>
-      <h1 className="display section-title">PRIVACY & INQUIRIES.</h1>
+      <Eyebrow>Your information</Eyebrow>
+      <h1 className="display section-title">Privacy & inquiries.</h1>
       <div className="prose-copy">
         <h2>Preparing your rental inquiry</h2>
         <p>

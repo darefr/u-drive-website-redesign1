@@ -1,5 +1,6 @@
 'use client'
 
+import { Eyebrow } from '@/components/brand'
 import { business } from '@/lib/fleet'
 
 export default function ErrorPage({
@@ -10,14 +11,14 @@ export default function ErrorPage({
 }) {
   return (
     <main id="main-content" className="shell recovery-page">
-      <p className="eyebrow">CONNECTION INTERRUPTED</p>
-      <h1 className="display section-title">LET’S TRY THAT AGAIN.</h1>
+      <Eyebrow>Connection interrupted</Eyebrow>
+      <h1 className="display section-title">Let’s try that again.</h1>
       <p>This view could not load. Try again, or call the team for rental assistance.</p>
-      <div className="flex flex-wrap gap-3">
-        <button type="button" className="action action-gold" onClick={reset}>
-          Try again
+      <div className="action-row">
+        <button type="button" className="action action-gold action-lg" onClick={reset}>
+          Try Again
         </button>
-        <a className="action action-outline" href={`tel:${business.phone}`}>
+        <a className="action action-outline action-lg" href={`tel:${business.phone}`}>
           Call U Drive
         </a>
       </div>

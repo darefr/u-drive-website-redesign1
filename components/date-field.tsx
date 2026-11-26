@@ -93,7 +93,7 @@ export function DateField({
       >
         <div className="calendar-heading">
           <div>
-            <p className="eyebrow">YOUR RENTAL DATES</p>
+            <p className="eyebrow">Your rental dates</p>
             <h3 id={`${id}-heading`}>{label}</h3>
           </div>
           <button type="button" aria-label="Close calendar" onClick={() => dialog.current?.close()}>

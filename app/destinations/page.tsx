@@ -28,7 +28,7 @@ export default function DestinationsPage() {
         <div className="destination-cover-shade" />
         <div className="shell">
           <p className="journey-kicker">
-            <MapPin size={15} /> NEPAL TRAVEL GUIDE
+            <MapPin size={15} aria-hidden="true" /> Nepal travel guide
           </p>
           <h1>
             Kathmandu starts it.
@@ -53,7 +53,7 @@ export default function DestinationsPage() {
               access, and delivery details for your itinerary before confirmation.
             </p>
             <Link href="/contact?topic=delivery" className="text-action">
-              Discuss your route <ArrowUpRight size={15} />
+              Discuss your route <ArrowUpRight size={17} aria-hidden="true" />
             </Link>
           </div>
           <FAQAccordion

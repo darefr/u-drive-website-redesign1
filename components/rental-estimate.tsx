@@ -16,7 +16,7 @@ export function RentalEstimate({ request, vehicle }: { request: RentalRequest; v
         />
       </div>
       <div className="estimate-content">
-        <p className="eyebrow">YOUR SELECTED VEHICLE</p>
+        <p className="eyebrow">Your selected vehicle</p>
         <h2 id="estimate-heading" className="estimate-name">
           {vehicle.name}
         </h2>
@@ -35,10 +35,12 @@ export function RentalEstimate({ request, vehicle }: { request: RentalRequest; v
         </dl>
         <div className="estimate-total" aria-live="polite" aria-atomic="true">
           <span>Estimated rental</span>
-          <strong>{days ? money(days * vehicle.rate) : 'Add your dates'}</strong>
+          <strong data-pending={!days}>
+            {days ? money(days * vehicle.rate) : 'Add your dates'}
+          </strong>
         </div>
         <p className="estimate-note">
-          <Info size={14} />
+          <Info size={15} aria-hidden="true" />
           Vehicle-rate estimate only. Availability, driver arrangements, delivery, and final terms
           are confirmed directly.
         </p>

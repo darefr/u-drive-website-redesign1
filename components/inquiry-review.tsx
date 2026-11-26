@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { ArrowRight, Clock3, MessageCircle } from 'lucide-react'
+import { ArrowRight, Clock3 } from 'lucide-react'
+import { WhatsAppIcon } from './brand'
 import { MessageHandoff } from './message-handoff'
 import { modeName, money, whatsappLink, type Vehicle } from '@/lib/fleet'
 import { prettyDate, rentalDays, type RentalRequest } from '@/lib/rental-request'
@@ -54,6 +55,7 @@ export function InquiryReview({ request, vehicle, onSent }: Props & { onSent: ()
       <MessageHandoff
         message={message}
         subject={`Booking request — ${vehicle.name}`}
+        sendLabel="Request Booking on WhatsApp"
         onSent={onSent}
       />
     </div>
@@ -64,7 +66,7 @@ export function RequestReceipt({ request, vehicle }: Props) {
   return (
     <div className="request-receipt">
       <span className="receipt-status">
-        <Clock3 size={16} /> AWAITING CONFIRMATION
+        <Clock3 size={16} aria-hidden="true" /> Awaiting confirmation
       </span>
       <p>
         You marked your booking request as sent. Your car is <strong>not reserved yet</strong>. U
@@ -86,7 +88,7 @@ export function RequestReceipt({ request, vehicle }: Props) {
           `Hello U Drive, I’m following up on my request for the ${vehicle.name}, ${prettyDate(request.pickupDate)} to ${prettyDate(request.returnDate)}.`,
         )}
       >
-        <MessageCircle /> Contact U Drive
+        <WhatsAppIcon /> Contact U Drive
       </a>
       <div className="receipt-links">
         <Link className="text-action" href="/fleet">

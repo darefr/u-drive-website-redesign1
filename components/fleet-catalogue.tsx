@@ -78,7 +78,14 @@ export function FleetCatalogue({ trip }: { trip?: TripSearch }) {
       </p>
       <div className="catalogue-car-grid">
         {cars.map((v, i) => (
-          <VehicleCard key={v.slug} vehicle={v} trip={trip} eager={i < 2} />
+          <VehicleCard
+            key={v.slug}
+            vehicle={v}
+            trip={trip}
+            eager={i < 2}
+            layout="row"
+            heading="h2"
+          />
         ))}
       </div>
       {cars.length === 0 && (

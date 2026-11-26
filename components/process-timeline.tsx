@@ -115,14 +115,17 @@ export function ProcessTimeline() {
     <ol className="process-timeline">
       {rentalSteps.map((step, i) => (
         <li key={step.title}>
-          <span className="timeline-number">{stepNumber(i)}</span>
+          <span className="timeline-node">
+            <step.icon size={22} aria-hidden="true" />
+          </span>
           <div>
-            <p className="overline">{step.phase}</p>
+            <p className="overline">
+              Step {stepNumber(i)} · {step.phase}
+            </p>
             <h2>{step.title}.</h2>
             <p>{step.body}</p>
             {step.link && <TextLink href={step.link}>{step.action}</TextLink>}
           </div>
-          <step.icon className="timeline-icon" size={24} aria-hidden="true" />
         </li>
       ))}
     </ol>

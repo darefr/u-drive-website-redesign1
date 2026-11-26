@@ -1,6 +1,10 @@
 import Image from 'next/image'
+import Link from 'next/link'
+import { ArrowRight, MapPin } from 'lucide-react'
 import { Breadcrumbs, CTASection, TextLink } from '@/components/editorial'
 import { Eyebrow } from '@/components/brand'
+import { ContactChannels } from '@/components/contact-channels'
+import { StatsCounter } from '@/components/stats-counter'
 import { pageMeta } from '@/lib/site'
 
 export const metadata = pageMeta(
@@ -16,11 +20,11 @@ export default function AboutPage() {
         <Breadcrumbs items={[{ label: 'About' }]} />
         <div className="about-spread">
           <div>
-            <Eyebrow>ABOUT U DRIVE</Eyebrow>
+            <Eyebrow>About U Drive</Eyebrow>
             <h1 className="display page-title">
-              KATHMANDU
+              Kathmandu
               <br />
-              AT HEART.
+              <em>at heart.</em>
             </h1>
             <p className="about-lead">A car rental service built around how you want to travel.</p>
             <p className="body-copy">
@@ -28,7 +32,9 @@ export default function AboutPage() {
               Nepal: take the wheel yourself, or travel with a professional driver.
             </p>
             <div className="action-row">
-              <TextLink href="/fleet">Meet the fleet</TextLink>
+              <Link className="action action-gold" href="/fleet">
+                Meet the Fleet <ArrowRight />
+              </Link>
               <TextLink href="/destinations">Explore destinations</TextLink>
             </div>
           </div>
@@ -37,21 +43,63 @@ export default function AboutPage() {
               src="/images/kathmandu.webp"
               alt="The terracotta rooftops of Kathmandu set against layered mountain ridges"
               fill
-              sizes="(max-width:760px) 94vw, 48vw"
+              sizes="(max-width: 900px) 94vw, 46vw"
               priority
             />
-            <figcaption>OUR HOME / KATHMANDU VALLEY</figcaption>
+            <figcaption>
+              <MapPin size={14} aria-hidden="true" /> Our home · Kathmandu Valley
+            </figcaption>
           </figure>
         </div>
       </div>
-      <section className="about-principles">
+      <StatsCounter />
+      <section className="about-story section-space" aria-labelledby="story-heading">
+        <div className="shell why-grid">
+          <div className="why-media">
+            <div className="why-photo-main">
+              <Image
+                src="/images/nepal-road.webp"
+                alt="A mountain road winding through forested hills towards snow peaks"
+                fill
+                sizes="(max-width: 900px) 92vw, 40vw"
+              />
+            </div>
+            <div className="why-photo-inset">
+              <Image
+                src="/images/mountain-mobile.webp"
+                alt="A Deepal S05 on a mountain road with snow peaks at sunrise"
+                fill
+                sizes="(max-width: 900px) 42vw, 18vw"
+              />
+            </div>
+          </div>
+          <div>
+            <Eyebrow>Our story</Eyebrow>
+            <h2 id="story-heading" className="editorial-title">
+              Built around the journey.
+            </h2>
+            <p className="body-copy">
+              No two trips in Nepal look the same. A day between the temples of the valley. A week
+              on the road to the lakes. A pickup at the airport after a long flight.
+            </p>
+            <p className="body-copy">
+              So we keep the rental flexible. Four cars, each with its daily rate in plain view. Two
+              rental modes. A handover point agreed with you, in Kathmandu or wherever in Nepal
+              your journey starts.
+            </p>
+            <p className="body-copy">
+              Nothing is assumed. You send a request, and our team confirms the car, the dates, and
+              the terms with you directly.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section className="about-principles on-dark" aria-labelledby="approach-heading">
         <div className="shell section-space editorial-split">
           <div>
-            <Eyebrow light>OUR APPROACH</Eyebrow>
-            <h2 className="editorial-title">
-              A rental that fits
-              <br />
-              the journey.
+            <Eyebrow light>Our approach</Eyebrow>
+            <h2 id="approach-heading" className="editorial-title">
+              A rental that fits <em>the journey.</em>
             </h2>
           </div>
           <div className="about-entries">
@@ -79,12 +127,18 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="shell about-contact">
+      <section className="shell section-space editorial-split" aria-labelledby="team-heading">
         <div>
-          <Eyebrow>THE KATHMANDU TEAM</Eyebrow>
-          <h2 className="editorial-title">Tell us where you’re headed.</h2>
+          <Eyebrow>The Kathmandu team</Eyebrow>
+          <h2 id="team-heading" className="editorial-title">
+            Tell us where you’re headed.
+          </h2>
+          <p className="body-copy">
+            Questions about a car, a route, or a handover go straight to the team in Kathmandu.
+          </p>
+          <TextLink href="/contact">Send an enquiry</TextLink>
         </div>
-        <TextLink href="/contact">Get in touch</TextLink>
+        <ContactChannels />
       </section>
       <CTASection />
     </main>

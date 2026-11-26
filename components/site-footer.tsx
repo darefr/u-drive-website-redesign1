@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react'
 import { Brand, FacebookIcon, WhatsAppIcon } from './brand'
+import { EmailAddress } from './contact-channels'
 import { business, money, vehicles, whatsappLink } from '@/lib/fleet'
 import { destinations } from '@/lib/destinations'
 
@@ -49,7 +50,7 @@ export function SiteFooter() {
               <Mail aria-hidden="true" />
               <span>
                 <small>Email</small>
-                {business.email}
+                <EmailAddress address={business.email} />
               </span>
             </a>
           </div>

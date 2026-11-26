@@ -11,7 +11,7 @@ import {
   Zap,
 } from 'lucide-react'
 import { vehicles, type Vehicle } from '@/lib/fleet'
-import { modelDetails } from '@/lib/vehicle-specs'
+import { modelDetails, onRequest } from '@/lib/vehicle-specs'
 import { tripHref, type TripSearch } from '@/lib/trip-search'
 import { WheelIcon } from './brand'
 import { FleetStage } from './fleet-stage'
@@ -19,14 +19,16 @@ import { Price } from './price'
 
 function specChips(slug: string) {
   const specs = modelDetails[slug]
-  const confirmed = (value: string) => !value.startsWith('Confirm')
+  const known = (value: string) => value !== onRequest
   const chips = [
-    confirmed(specs.seats) && { Icon: Users, text: specs.seats },
-    confirmed(specs.transmission) && { Icon: Gauge, text: specs.transmission },
-    confirmed(specs.power) && { Icon: Zap, text: specs.power },
+    known(specs.seats) && { Icon: Users, text: specs.seats },
+    known(specs.transmission) && { Icon: Gauge, text: specs.transmission },
+    known(specs.power) && { Icon: Zap, text: specs.power },
   ].filter((chip) => chip !== false)
-  // Models whose variant is agreed per rental say so instead of guessing a spec.
-  if (chips.length < 3) chips.push({ Icon: CircleCheck, text: 'Variant confirmed on request' })
+  // Anything agreed per rental says so instead of guessing a spec.
+  if (!known(specs.seats)) chips.push({ Icon: CircleCheck, text: 'Seating on request' })
+  if (!known(specs.transmission) || !known(specs.power))
+    chips.push({ Icon: CircleCheck, text: 'Variant on request' })
   return chips
 }
 

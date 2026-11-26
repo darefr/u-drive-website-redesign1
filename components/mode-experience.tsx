@@ -1,30 +1,59 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, ArrowUpRight, MessageCircle } from 'lucide-react'
-import { Eyebrow } from './brand'
-import { Breadcrumbs, CTASection, FAQAccordion, TextLink } from './editorial'
-import { bookingLink, money, vehicles, whatsappLink, type RentalMode } from '@/lib/fleet'
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BriefcaseBusiness,
+  Info,
+  Mountain,
+  PlaneLanding,
+  type LucideIcon,
+} from 'lucide-react'
+import { Eyebrow, WhatsAppIcon } from './brand'
+import { Breadcrumbs, CTASection, FAQAccordion, TextLink, type Question } from './editorial'
+import { Price } from './price'
+import { bookingLink, vehicles, whatsappLink, type RentalMode } from '@/lib/fleet'
 
-const modeCopy = {
+type ModeCopy = {
+  name: string
+  title: React.ReactNode
+  intro: string
+  image: string
+  alt: string
+  heading: string
+  text: string
+  // Steps are numbered in order; occasions are marked with an icon instead.
+  points: { title: string; body: string; Icon?: LucideIcon }[]
+  faqs: Question[]
+  other: { mode: RentalMode; href: string; title: string; text: string; label: string }
+}
+
+const modeCopy: Record<RentalMode, ModeCopy> = {
   'self-drive': {
     name: 'Self Drive',
     title: (
       <>
-        SELF DRIVE.
+        Self drive.
         <br />
-        <em>YOUR PACE.</em>
+        <em>Your pace.</em>
       </>
     ),
     intro:
       'Take the keys and make the route your own. Arrange a self-drive rental from Kathmandu for the journey you have in mind.',
-    image: 'nepal-road',
-    alt: 'A mountain road curving through the green landscape of Nepal',
+    image: 'mode-self-drive',
+    alt: 'A driver’s view over the steering wheel of a winding road through terraced hills',
     heading: 'The road is yours.',
     text: 'Self Drive means you drive the rental car yourself. Choose a model and dates, then share your itinerary so U Drive can confirm the arrangements for your trip.',
     points: [
-      ['Pick your vehicle', 'Choose the model and daily rate that suit your plans.'],
-      ['Share your plans', 'Tell us your dates, route, and preferred pickup point.'],
-      ['Confirm and collect', 'Agree the requirements and rental terms before handover.'],
+      { title: 'Pick your vehicle', body: 'Choose the model and daily rate that suit your plans.' },
+      {
+        title: 'Share your plans',
+        body: 'Tell us your dates, route, and preferred pickup point.',
+      },
+      {
+        title: 'Confirm and collect',
+        body: 'Agree the requirements and rental terms before handover.',
+      },
     ],
     faqs: [
       {
@@ -40,35 +69,45 @@ const modeCopy = {
         a: 'No. Your request lets U Drive check the vehicle and dates. Your rental is confirmed only once the team agrees the details with you.',
       },
     ],
+    other: {
+      mode: 'with-driver',
+      href: '/with-driver',
+      title: 'Rather take in the view?',
+      text: 'Every car in the fleet can also be arranged with a professional driver at the wheel.',
+      label: 'Explore With Driver',
+    },
   },
   'with-driver': {
     name: 'With Driver',
     title: (
       <>
-        SIT BACK.
+        Sit back.
         <br />
-        <em>TAKE IT IN.</em>
+        <em>Take it in.</em>
       </>
     ),
     intro:
       'A car and a professional driver, arranged around your itinerary. Enjoy the journey from Kathmandu to your destination.',
-    image: 'driver-view',
-    alt: 'The view past a driver onto an open road in the Nepal foothills',
+    image: 'mode-with-driver',
+    alt: 'A passenger looking out at the mountains from the back seat while a driver takes the wheel',
     heading: 'Your plans. A driver at the wheel.',
     text: 'Choose a driver-assisted rental when you would rather focus on the people and places along the way. U Drive coordinates your vehicle, driver, and pickup for the itinerary you share.',
     points: [
-      [
-        'Sightseeing & longer journeys',
-        'Share the places you want to see, including overnight stops, so the team can check your route.',
-      ],
-      [
-        'Business travel',
-        'Plan your meetings and preferred pickup times while a professional driver takes the wheel.',
-      ],
-      [
-        'Airport & hotel pickups',
-        'Include your arrival details and accommodation. The team will agree the exact meeting point and timing.',
-      ],
+      {
+        Icon: Mountain,
+        title: 'Sightseeing & longer journeys',
+        body: 'Share the places you want to see, including overnight stops, so the team can check your route.',
+      },
+      {
+        Icon: BriefcaseBusiness,
+        title: 'Business travel',
+        body: 'Plan your meetings and preferred pickup times while a professional driver takes the wheel.',
+      },
+      {
+        Icon: PlaneLanding,
+        title: 'Airport & hotel pickups',
+        body: 'Include your arrival details and accommodation. The team will agree the exact meeting point and timing.',
+      },
     ],
     faqs: [
       {
@@ -84,8 +123,16 @@ const modeCopy = {
         a: 'Yes. U Drive offers rental and vehicle delivery services across Nepal. Share your itinerary so the team can confirm the details.',
       },
     ],
+    other: {
+      mode: 'self-drive',
+      href: '/self-drive',
+      title: 'Rather take the wheel?',
+      text: 'Every car in the fleet can also be rented self-drive, at the same daily rate.',
+      label: 'Explore Self Drive',
+    },
   },
 }
+
 export function ModeExperience({ mode }: { mode: RentalMode }) {
   const m = modeCopy[mode]
   return (
@@ -93,40 +140,48 @@ export function ModeExperience({ mode }: { mode: RentalMode }) {
       <div className="shell">
         <Breadcrumbs items={[{ label: m.name }]} />
       </div>
-      <section className={`experience-hero ${mode}`}>
+      <section className={`experience-hero on-dark ${mode}`}>
         <div className="experience-image">
           <Image
             src={`/images/${m.image}.webp`}
             alt={m.alt}
             fill
-            sizes="(max-width:680px) 100vw, 60vw"
+            sizes="(max-width: 700px) 100vw, 62vw"
             priority
           />
         </div>
         <div className="shell experience-hero-inner">
           <div className="experience-copy">
-            <Eyebrow light>{m.name.toUpperCase()} RENTALS</Eyebrow>
+            <Eyebrow light>{m.name} rentals</Eyebrow>
             <h1 className="display">{m.title}</h1>
             <p>{m.intro}</p>
-            <Link className="action action-gold" href={bookingLink(undefined, mode)}>
-              Plan this rental <ArrowRight />
-            </Link>
+            <div className="action-row">
+              <Link className="action action-gold action-lg" href={bookingLink(undefined, mode)}>
+                Book {m.name} <ArrowRight />
+              </Link>
+              <Link className="action action-glass action-lg" href="/fleet">
+                Explore Fleet <ArrowUpRight />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
       <section className="shell section-space editorial-split">
         <div>
-          <Eyebrow>THE EXPERIENCE</Eyebrow>
+          <Eyebrow>The experience</Eyebrow>
           <h2 className="editorial-title">{m.heading}</h2>
           <p className="body-copy">{m.text}</p>
           {mode === 'self-drive' && (
-            <p className="requirements-note">Requirements will be confirmed during booking.</p>
+            <p className="requirements-note">
+              <Info size={17} aria-hidden="true" />
+              Requirements will be confirmed during booking.
+            </p>
           )}
         </div>
         <div className="mode-process">
-          {m.points.map(([title, body], i) => (
+          {m.points.map(({ title, body, Icon }, i) => (
             <div key={title}>
-              <span>0{i + 1}</span>
+              {Icon ? <Icon aria-hidden="true" /> : <span aria-hidden="true">0{i + 1}</span>}
               <div>
                 <h3>{title}</h3>
                 <p>{body}</p>
@@ -139,31 +194,36 @@ export function ModeExperience({ mode }: { mode: RentalMode }) {
         <div className="shell section-space">
           <div className="section-heading-row">
             <div>
-              <Eyebrow>CHOOSE YOUR CAR</Eyebrow>
+              <Eyebrow>Choose your car</Eyebrow>
               <h2 className="editorial-title">The rental line-up.</h2>
             </div>
-            <TextLink href="/fleet">Full catalogue</TextLink>
+            <Link href="/fleet" className="drive-section-link">
+              Full catalogue <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
           </div>
           <div className="mode-fleet-list">
             {vehicles.map((v) => (
               <div key={v.slug}>
                 <Link className="mode-car-name" href={`/fleet/${v.slug}`}>
-                  <Image src={`/images/${v.slug}-card.webp`} alt="" width={98} height={58} />
+                  <Image
+                    src={`/images/${v.slug}-card.webp`}
+                    alt=""
+                    width={506}
+                    height={302}
+                    sizes="160px"
+                  />
                   <span>
                     {v.name}
                     <small>{v.label}</small>
                   </span>
                 </Link>
-                <p>
-                  <strong>{money(v.rate)}</strong>
-                  <span> / day</span>
-                </p>
+                <Price amount={v.rate} />
                 <Link
                   href={bookingLink(v.slug, mode)}
                   aria-label={`Request ${v.name} ${m.name}`}
                   className="mode-request-link"
                 >
-                  Request <ArrowUpRight size={17} />
+                  Request <ArrowRight size={16} aria-hidden="true" />
                 </Link>
               </div>
             ))}
@@ -175,19 +235,34 @@ export function ModeExperience({ mode }: { mode: RentalMode }) {
       </section>
       <section className="shell section-space editorial-split">
         <div>
-          <Eyebrow>BEFORE YOU BOOK</Eyebrow>
+          <Eyebrow>Before you book</Eyebrow>
           <h2 className="editorial-title">A few useful answers.</h2>
-          <a
-            className="text-action"
-            href={whatsappLink(`Hello U Drive, I would like to ask about a ${m.name} rental.`)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <MessageCircle size={16} /> Ask on WhatsApp
-          </a>
+          <div className="action-row home-faq-links">
+            <TextLink href="/faq">Read all questions</TextLink>
+            <a
+              className="text-action"
+              href={whatsappLink(`Hello U Drive, I would like to ask about a ${m.name} rental.`)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <WhatsAppIcon size={16} /> Ask on WhatsApp
+            </a>
+          </div>
         </div>
         <FAQAccordion questions={m.faqs} />
       </section>
+      <div className="shell">
+        <section className="mode-other">
+          <div>
+            <Eyebrow light>The other way to travel</Eyebrow>
+            <h2>{m.other.title}</h2>
+            <p>{m.other.text}</p>
+          </div>
+          <Link className="action action-glass" href={m.other.href}>
+            {m.other.label} <ArrowRight />
+          </Link>
+        </section>
+      </div>
       <CTASection href={bookingLink(undefined, mode)} label={`Book ${m.name}`} />
     </main>
   )

@@ -30,7 +30,7 @@ export default function ReviewsPage() {
         <ReviewCarousel />
         <div className="review-community">
           <div>
-            <MessageCircle size={22} />
+            <MessageCircle size={22} aria-hidden="true" />
             <h2>Travelled with U Drive?</h2>
             <p>
               Visit our official Facebook page to share your experience, or contact the team about a

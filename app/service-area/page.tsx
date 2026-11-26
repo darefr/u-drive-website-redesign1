@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, MapPin, Route } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, MapPin, Route } from 'lucide-react'
 import { Breadcrumbs, CTASection, PageIntro, TextLink } from '@/components/editorial'
 import { Eyebrow } from '@/components/brand'
+import { DestinationCard } from '@/components/destination-card'
+import { destinations } from '@/lib/destinations'
 import { pageMeta } from '@/lib/site'
 
 export const metadata = pageMeta(
@@ -11,12 +13,16 @@ export const metadata = pageMeta(
   '/service-area',
   '/images/kathmandu.webp',
 )
+
+const featuredGuides = ['pokhara', 'chitwan', 'mustang']
+
 export default function ServiceAreaPage() {
+  const guides = destinations.filter((d) => featuredGuides.includes(d.slug))
   return (
     <main id="main-content">
       <div className="shell">
         <Breadcrumbs items={[{ label: 'Service area' }]} />
-        <PageIntro label="OUR SERVICE AREA" title="Kathmandu + All Nepal.">
+        <PageIntro label="Our service area" title="Kathmandu + all Nepal.">
           A Kathmandu starting point. A Nepal-wide service. Tell us where your journey begins and
           we’ll work out the handover with you.
         </PageIntro>
@@ -26,45 +32,43 @@ export default function ServiceAreaPage() {
               src="/images/kathmandu.webp"
               alt="Layered pagoda rooftops and the hills of the Kathmandu valley"
               fill
-              sizes="(max-width:680px) 90vw, 55vw"
+              sizes="(max-width: 700px) 92vw, 55vw"
               priority
             />
             <figcaption>
-              <MapPin />
+              <MapPin aria-hidden="true" />
               <span>
-                <small>OUR BASE</small>Kathmandu
+                <small>Our base</small>Kathmandu
               </span>
             </figcaption>
           </figure>
           <figure>
             <Image
-              src="/images/nepal-road.webp"
-              alt="An open road winding between the hills of Nepal"
+              src="/images/nepal-high-road.webp"
+              alt="A mountain road lined with prayer flags, with snow peaks catching the last light"
               fill
-              sizes="(max-width:680px) 90vw, 40vw"
+              sizes="(max-width: 700px) 92vw, 40vw"
             />
             <figcaption>
-              <Route />
+              <Route aria-hidden="true" />
               <span>
-                <small>SERVICE & DELIVERY</small>Across Nepal
+                <small>Service & delivery</small>Across Nepal
               </span>
             </figcaption>
           </figure>
         </div>
-        <section className="section-space editorial-split">
+        <section className="section-space editorial-split" aria-labelledby="delivery-heading">
           <div>
-            <Eyebrow>VEHICLE DELIVERY</Eyebrow>
-            <h2 className="editorial-title">
-              Where should
-              <br />
-              we meet you?
+            <Eyebrow>Vehicle delivery</Eyebrow>
+            <h2 id="delivery-heading" className="editorial-title">
+              Where should we meet you?
             </h2>
             <p className="body-copy">
               Request a handover at your preferred location. Delivery and collection are arranged
               for each booking, rather than assumed from a standard coverage list.
             </p>
             <Link className="action action-dark editorial-action" href="/contact?topic=delivery">
-              Discuss your location <ArrowRight />
+              Discuss Your Location <ArrowRight />
             </Link>
           </div>
           <div className="brief-list">
@@ -89,6 +93,28 @@ export default function ServiceAreaPage() {
             </dl>
             <TextLink href="/booking">Include delivery in a booking</TextLink>
           </div>
+        </section>
+        <section className="guide-more" aria-labelledby="journeys-heading">
+          <div className="drive-section-head">
+            <div>
+              <p className="drive-eyebrow">Beyond the valley</p>
+              <h2 id="journeys-heading" className="drive-section-title">
+                Journeys to plan from Kathmandu.
+              </h2>
+            </div>
+            <Link href="/destinations" className="drive-section-link">
+              All destinations <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+          <div className="destination-directory">
+            {guides.map((d) => (
+              <DestinationCard key={d.slug} destination={d} />
+            ))}
+          </div>
+          <p className="image-note">
+            Guides are travel inspiration, not branch locations. Routes and vehicle suitability are
+            confirmed for each booking.
+          </p>
         </section>
       </div>
       <CTASection />

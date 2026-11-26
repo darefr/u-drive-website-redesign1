@@ -7,6 +7,9 @@ export type ModelDetails = {
   highlights: string[]
 }
 
+// Shown for any specification that depends on the exact car supplied for a rental.
+export const onRequest = 'Confirmed on request'
+
 export const modelDetails: Record<string, ModelDetails> = {
   'deepal-s05': {
     seats: '5 seats',
@@ -28,8 +31,8 @@ export const modelDetails: Record<string, ModelDetails> = {
   },
   'tata-nexon': {
     seats: '5 seats',
-    transmission: 'Confirm variant',
-    power: 'Confirm variant',
+    transmission: onRequest,
+    power: onRequest,
     feature: 'A versatile city SUV',
     notes:
       'The Nexon is a compact, five-seat SUV. This model comes in different powertrain and transmission configurations; check the exact rental variant with U Drive.',
@@ -40,7 +43,7 @@ export const modelDetails: Record<string, ModelDetails> = {
     ],
   },
   'byd-atto-1': {
-    seats: 'Confirm layout',
+    seats: onRequest,
     transmission: 'Automatic',
     power: 'Electric',
     feature: 'Made for city days',

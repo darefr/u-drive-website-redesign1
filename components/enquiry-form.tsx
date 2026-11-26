@@ -44,7 +44,7 @@ export function EnquiryForm({ delivery = false }: { delivery?: boolean }) {
   const message = `Hello U Drive,\n\n${values.topic}\n\n${values.message.trim()}\n\nName: ${values.name.trim()}\nEmail: ${values.email.trim()}`
   return (
     <section className="enquiry-panel">
-      <p className="overline">ENQUIRY DESK</p>
+      <p className="overline">Enquiry desk</p>
       <h2 ref={heading} tabIndex={-1}>
         {['Tell us your plans.', 'Review your enquiry.', 'Enquiry marked as sent.'][step]}
       </h2>
@@ -110,8 +110,8 @@ export function EnquiryForm({ delivery = false }: { delivery?: boolean }) {
             Review first, then send through WhatsApp or email. Your details are not stored on this
             site.
           </p>
-          <button className="action action-gold" type="submit">
-            Review enquiry <ArrowRight />
+          <button className="action action-gold action-lg" type="submit">
+            Review Enquiry <ArrowRight />
           </button>
         </form>
       ) : step === 1 ? (
@@ -125,7 +125,7 @@ export function EnquiryForm({ delivery = false }: { delivery?: boolean }) {
         </>
       ) : (
         <div className="enquiry-receipt">
-          <Check size={25} />
+          <Check size={25} aria-hidden="true" />
           <p>
             You marked your message as sent. Continue your conversation directly with U Drive in
             your chosen channel.

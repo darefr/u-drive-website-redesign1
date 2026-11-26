@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowRight, ArrowUpRight, MapPin, MessageCircle } from 'lucide-react'
-import { Breadcrumbs, FAQAccordion, TextLink } from '@/components/editorial'
-import { Eyebrow } from '@/components/brand'
+import { ArrowRight, ArrowUpRight, Check, MapPin, UserRound } from 'lucide-react'
+import { Breadcrumbs, FAQAccordion } from '@/components/editorial'
+import { Eyebrow, WhatsAppIcon, WheelIcon } from '@/components/brand'
+import { Price } from '@/components/price'
+import { SwipeRail } from '@/components/swipe-rail'
 import { VehicleGallery } from '@/components/vehicle-gallery'
 import { VehicleBookingPanel } from '@/components/vehicle-booking-panel'
 import { VehicleSpecs } from '@/components/vehicle-specs'
@@ -39,28 +41,29 @@ export default async function VehiclePage({ params, searchParams }: Props) {
         <Breadcrumbs items={[{ label: 'Our fleet', href: '/fleet' }, { label: v.name }]} />
         <div className="model-heading">
           <div>
-            <Eyebrow>THE U DRIVE FLEET / {v.label.toUpperCase()}</Eyebrow>
+            <Eyebrow>The U Drive fleet · {v.label}</Eyebrow>
             <h1 className="display page-title">{v.name}.</h1>
           </div>
-          <div className="model-base">
-            <MapPin size={16} /> Kathmandu + all Nepal
-          </div>
+          <p className="model-base">
+            <MapPin size={16} aria-hidden="true" /> Kathmandu + all Nepal
+          </p>
         </div>
         <div className="model-intro-grid">
           <VehicleGallery vehicle={v} />
-          <section className="model-dossier">
-            <p className="overline">DAILY VEHICLE RATE</p>
-            <p className="dossier-price">
-              {money(v.rate)}
-              <span> / day</span>
-            </p>
-            <h2>Meet the {v.name}.</h2>
+          <section className="model-dossier" aria-labelledby="dossier-heading">
+            <p className="overline">Daily vehicle rate</p>
+            <Price amount={v.rate} className="dossier-price" />
+            <h2 id="dossier-heading">Meet the {v.name}.</h2>
             <p>{v.introduction}</p>
+            <ul className="dossier-modes" aria-label="Rental modes">
+              <li>
+                <WheelIcon size={16} /> Self drive
+              </li>
+              <li>
+                <UserRound size={16} aria-hidden="true" /> With driver
+              </li>
+            </ul>
             <dl className="dossier-facts">
-              <div>
-                <dt>Rental modes</dt>
-                <dd>Self Drive / With Driver</dd>
-              </div>
               <div>
                 <dt>Pickup & delivery</dt>
                 <dd>Arranged with U Drive</dd>
@@ -70,8 +73,8 @@ export default async function VehiclePage({ params, searchParams }: Props) {
                 <dd>Confirmed on request</dd>
               </div>
             </dl>
-            <Link className="action action-gold" href={booking}>
-              Book Now <ArrowRight />
+            <Link className="action action-gold action-lg" href={booking}>
+              Book This Car <ArrowRight />
             </Link>
             <a
               className="model-enquiry"
@@ -79,60 +82,96 @@ export default async function VehiclePage({ params, searchParams }: Props) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <MessageCircle size={16} /> Ask about this car
+              <WhatsAppIcon size={17} /> Ask about this car
             </a>
           </section>
         </div>
         <VehicleSpecs vehicle={v} />
-        <section className="model-request">
+        <section className="model-request" aria-labelledby="request-heading">
           <div className="model-request-copy">
-            <Eyebrow>BOOK THIS MODEL</Eyebrow>
-            <h2 className="editorial-title">Make it your drive.</h2>
+            <Eyebrow>Book this model</Eyebrow>
+            <h2 id="request-heading" className="editorial-title">
+              Make it your drive.
+            </h2>
             <p>
               Set your dates and preferred rental mode. Review your estimate before sending your
               request to the Kathmandu team.
             </p>
-            <FAQAccordion
-              questions={[
-                {
-                  q: 'How is my estimate calculated?',
-                  a: `The daily vehicle rate of ${money(v.rate)} is multiplied by the number of rental days. A same-day rental is estimated as one day. Final arrangements are agreed directly with U Drive.`,
-                },
-                {
-                  q: 'Can I request delivery?',
-                  a: 'Yes. Enter your preferred meeting point in the booking form. The team will confirm the delivery location and timing for your itinerary.',
-                },
-              ]}
-            />
+            <ul className="request-points">
+              <li>
+                <Check aria-hidden="true" /> Your estimate updates as you choose your dates
+              </li>
+              <li>
+                <Check aria-hidden="true" /> Send your request by WhatsApp or email
+              </li>
+              <li>
+                <Check aria-hidden="true" /> U Drive confirms availability and the final terms
+              </li>
+            </ul>
           </div>
           <VehicleBookingPanel vehicle={v} trip={trip} />
         </section>
-        <section className="related-models">
+        <section className="model-questions editorial-split" aria-labelledby="questions-heading">
+          <div>
+            <Eyebrow>Good to know</Eyebrow>
+            <h2 id="questions-heading" className="editorial-title">
+              Renting the {v.name}.
+            </h2>
+            <Link className="text-action" href="/faq">
+              Read all questions <ArrowUpRight size={17} aria-hidden="true" />
+            </Link>
+          </div>
+          <FAQAccordion
+            questions={[
+              {
+                q: 'How is my estimate calculated?',
+                a: `The daily vehicle rate of ${money(v.rate)} is multiplied by the number of rental days. A same-day rental is estimated as one day. Final arrangements are agreed directly with U Drive.`,
+              },
+              {
+                q: `Can I rent the ${v.name} with a driver?`,
+                a: 'Yes. Choose With Driver in the booking form and share your itinerary. U Drive confirms the driver arrangement and the final rental amount with you before you book.',
+              },
+              {
+                q: 'Can I request delivery?',
+                a: 'Yes. Enter your preferred meeting point in the booking form. The team will confirm the delivery location and timing for your itinerary.',
+              },
+              {
+                q: 'Is the car reserved when I send a request?',
+                a: 'No. Your request lets U Drive check the vehicle for your dates. The rental is confirmed once the team agrees the details with you.',
+              },
+            ]}
+          />
+        </section>
+        <section className="related-models" aria-labelledby="related-heading">
           <div className="section-heading-row">
             <div>
-              <Eyebrow>KEEP EXPLORING</Eyebrow>
-              <h2 className="editorial-title">Also in the fleet.</h2>
+              <Eyebrow>Keep exploring</Eyebrow>
+              <h2 id="related-heading" className="editorial-title">
+                Also in the fleet.
+              </h2>
             </div>
-            <TextLink href="/fleet">All vehicles</TextLink>
+            <Link href="/fleet" className="drive-section-link">
+              All vehicles <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
           </div>
-          <div className="related-grid">
+          <SwipeRail label="More rental cars">
             {vehicles
               .filter((car) => car.slug !== v.slug)
               .map((car) => (
                 <VehicleCard key={car.slug} vehicle={car} />
               ))}
-          </div>
+          </SwipeRail>
         </section>
       </div>
       <div className="mobile-model-action">
         <span>
-          <small>DAILY RATE</small>
+          <small>Daily rate</small>
           <strong>
             {money(v.rate)} <em>/ day</em>
           </strong>
         </span>
         <Link className="action action-gold" href={booking}>
-          Book this car <ArrowUpRight />
+          Book This Car <ArrowRight />
         </Link>
       </div>
     </main>

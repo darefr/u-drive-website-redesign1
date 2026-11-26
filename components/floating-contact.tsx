@@ -9,7 +9,7 @@ import { business, whatsappLink } from '@/lib/fleet'
 
 // Panels the button must not sit on top of on small screens.
 const protectedPanels =
-  '.trip-planner, .booking-form-panel, .enquiry-panel, .hero-foot, .review-foot, .rail-controls'
+  '.trip-planner, .booking-form-panel, .enquiry-panel, .estimate-card, .hero-foot, .review-foot, .rail-controls, .faq-topics'
 
 export function FloatingContactButtons() {
   const [open, setOpen] = useState(false)
@@ -23,7 +23,8 @@ export function FloatingContactButtons() {
     let frame = 0
     const position = () => {
       const narrow = window.matchMedia('(max-width: 700px)').matches
-      let bottom = path.startsWith('/fleet/') && narrow ? 83 : narrow ? 13 : 21
+      const rest = path.startsWith('/fleet/') && narrow ? 83 : narrow ? 13 : 21
+      let bottom = rest
       if (narrow) {
         const boxes = [...document.querySelectorAll(protectedPanels)]
           .map((node) => node.getBoundingClientRect())
@@ -34,8 +35,10 @@ export function FloatingContactButtons() {
             bottom = window.innerHeight - box.top + 9
         }
       }
-      root.style.bottom = `${bottom}px`
-      root.style.visibility = bottom > window.innerHeight - 120 ? 'hidden' : ''
+      // Beside a tall form the button steps aside instead of hovering mid-screen.
+      const displaced = bottom - rest > 150
+      root.style.bottom = `${displaced ? rest : bottom}px`
+      root.style.visibility = displaced ? 'hidden' : ''
     }
     const schedule = () => {
       cancelAnimationFrame(frame)

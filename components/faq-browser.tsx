@@ -18,7 +18,7 @@ export function FAQBrowser() {
     <div className="faq-browser">
       <aside className="faq-topics">
         <div className="faq-search">
-          <Search size={17} />
+          <Search size={18} aria-hidden="true" />
           <input
             type="search"
             aria-label="Search rental questions"
@@ -33,12 +33,12 @@ export function FAQBrowser() {
             </button>
           )}
         </div>
-        <p className="overline">BROWSE BY TOPIC</p>
+        <p className="overline">Browse by topic</p>
         <div className="topic-list">
           {['All questions', ...faqGroups].map((g) => (
             <button type="button" key={g} aria-pressed={group === g} onClick={() => setGroup(g)}>
               {g}
-              <ArrowRight size={15} />
+              <ArrowRight size={15} aria-hidden="true" />
             </button>
           ))}
         </div>

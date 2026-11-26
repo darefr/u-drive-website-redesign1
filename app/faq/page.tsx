@@ -1,4 +1,6 @@
-import { Breadcrumbs, PageIntro, TextLink } from '@/components/editorial'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
+import { Breadcrumbs, PageIntro } from '@/components/editorial'
 import { FAQBrowser } from '@/components/faq-browser'
 import { pageMeta } from '@/lib/site'
 import { faqs } from '@/lib/faq'
@@ -25,7 +27,7 @@ export default function FAQPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\\u003c') }}
       />
       <Breadcrumbs items={[{ label: 'FAQ' }]} />
-      <PageIntro label="THE RENTAL GUIDE" title="Good to know.">
+      <PageIntro label="The rental guide" title="Good to know.">
         Answers about the fleet, your booking request, and getting on the road in Nepal.
       </PageIntro>
       <FAQBrowser />
@@ -34,7 +36,9 @@ export default function FAQPage() {
           <h2>Have a different question?</h2>
           <p>Tell the Kathmandu team what you have in mind.</p>
         </div>
-        <TextLink href="/contact">Contact U Drive</TextLink>
+        <Link href="/contact" className="action action-dark">
+          Contact U Drive <ArrowRight />
+        </Link>
       </div>
     </main>
   )
