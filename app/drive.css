@@ -1,0 +1,613 @@
+/* Home hero and the rental search bar that overlaps it. */
+
+.hero {
+  --hero-overlap: 68px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* Runs up underneath the transparent header. */
+  margin-top: calc(-1 * var(--header-h));
+  background: var(--navy-deep);
+  color: var(--white);
+}
+.hero-media,
+.hero-scrim,
+.hero-frame {
+  position: absolute;
+  inset: 0;
+}
+.hero-media {
+  z-index: -2;
+}
+.hero-frame {
+  display: block;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+.hero-frame[data-active='true'] {
+  opacity: 1;
+}
+.hero-frame img {
+  object-fit: cover;
+  object-position: var(--focus, 50% 60%);
+}
+.hero-frame[data-active='true'] img {
+  animation: hero-push 9s var(--ease-out) both;
+}
+.hero-scrim {
+  z-index: -1;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--navy-deep) 90%, transparent) 0%,
+      color-mix(in srgb, var(--navy-deep) 64%, transparent) 34%,
+      transparent 68%
+    ),
+    linear-gradient(0deg, color-mix(in srgb, var(--navy-deep) 84%, transparent) 0%, transparent 36%);
+}
+.hero-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: clamp(640px, 92svh, 920px);
+  padding-top: calc(var(--header-h) + 28px);
+  padding-bottom: calc(var(--hero-overlap) + 92px);
+}
+.hero-copy {
+  max-width: min(64%, 880px);
+}
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  animation: hero-fade 0.8s var(--ease-out) both;
+}
+.hero-kicker::before {
+  content: '';
+  flex: none;
+  width: 34px;
+  height: 3px;
+  background: repeating-linear-gradient(90deg, var(--gold) 0 10px, transparent 10px 16px);
+  transform: skewX(-24deg);
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(3.5rem, min(1.6rem + 6.2vw, 13.5svh), 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.012em;
+  margin-top: 20px;
+}
+/* Each line slides up from behind its own mask. */
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding: 0.06em 0.1em 0.02em 0;
+  margin-bottom: -0.04em;
+}
+.hero-line > * {
+  display: block;
+  animation: hero-rise 0.95s var(--ease-out) both;
+}
+.hero-line:nth-child(1) > * {
+  animation-delay: 0.1s;
+}
+.hero-line:nth-child(2) > * {
+  animation-delay: 0.19s;
+}
+.hero-line:nth-child(3) > * {
+  animation-delay: 0.28s;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+.hero-lead {
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  max-width: 47ch;
+  color: color-mix(in srgb, var(--white) 90%, var(--navy));
+  margin-top: 24px;
+  animation: hero-fade 0.8s var(--ease-out) 0.42s both;
+}
+.hero-actions {
+  margin-top: 32px;
+  animation: hero-fade 0.8s var(--ease-out) 0.54s both;
+}
+.hero-foot {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: calc(var(--hero-overlap) + 26px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  animation: hero-fade 0.8s var(--ease-out) 0.7s both;
+}
+.hero-slides {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-slides button {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--white) 46%, transparent);
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+.hero-slides button:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--navy);
+}
+.hero-count {
+  margin-left: 8px;
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.hero-count span {
+  color: var(--silver);
+}
+.hero-progress {
+  display: flex;
+  gap: 4px;
+  margin-left: 6px;
+}
+.hero-progress i {
+  display: block;
+  height: 3px;
+  width: 20px;
+  background: color-mix(in srgb, var(--white) 36%, transparent);
+  transition:
+    width 0.4s var(--ease-out),
+    background-color 0.4s;
+}
+.hero-progress i[data-active='true'] {
+  background: var(--gold);
+  width: 40px;
+}
+.hero-car {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 58px;
+  padding: 8px 8px 8px 20px;
+  border: 1px solid color-mix(in srgb, var(--white) 30%, transparent);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--navy-deep) 62%, transparent);
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
+}
+.hero-car:hover {
+  border-color: var(--gold);
+  background: color-mix(in srgb, var(--navy-deep) 82%, transparent);
+}
+.hero-car-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+.hero-car strong {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.hero-car-rate {
+  padding-left: 14px;
+  border-left: 1px solid color-mix(in srgb, var(--white) 30%, transparent);
+  font-size: 0.9375rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.hero-car-rate small {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--silver);
+}
+.hero-car-arrow {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--gold);
+  color: var(--navy);
+  transition: transform 0.2s var(--ease-out);
+}
+.hero-car:hover .hero-car-arrow {
+  transform: translate(2px, -2px);
+}
+@keyframes hero-push {
+  from {
+    transform: scale(1.07);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes hero-rise {
+  from {
+    transform: translateY(108%);
+  }
+}
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* ---------- Rental search bar ---------- */
+
+.trip-planner-wrap {
+  position: relative;
+  z-index: 2;
+  margin-top: -68px;
+}
+.trip-planner {
+  background: var(--white);
+  color: var(--navy);
+  padding: 24px 28px 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-lift);
+}
+.trip-planner-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.trip-planner-head h2 {
+  font-size: 1.3125rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+.trip-planner-head p {
+  color: var(--stone);
+  font-size: 0.875rem;
+  margin-top: 3px;
+}
+.trip-mode-switch {
+  display: flex;
+  align-items: center;
+  flex: none;
+  border-radius: var(--radius);
+  background: var(--muted);
+  border: 1px solid var(--border);
+  padding: 4px;
+}
+.trip-mode-switch label {
+  cursor: pointer;
+}
+.trip-mode-switch label > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 16px;
+  min-height: 40px;
+  font-size: 0.875rem;
+  font-weight: 650;
+  border-radius: calc(var(--radius) - 2px);
+  color: var(--stone);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+.trip-mode-switch svg {
+  width: 16px;
+  height: 16px;
+}
+.trip-mode-switch input:checked + span {
+  background: var(--navy);
+  color: var(--white);
+}
+.trip-mode-switch input:checked + span svg {
+  color: var(--gold);
+}
+.trip-mode-switch input:focus-visible + span {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
+.trip-search-fields {
+  display: grid;
+  grid-template-columns: 1.15fr 1.15fr 1fr 1fr auto;
+  align-items: end;
+  gap: 14px;
+  margin-top: 20px;
+}
+.trip-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+.trip-field > span:first-child,
+.trip-date [data-slot='field-label'] {
+  color: var(--stone);
+  font:
+    650 0.8125rem/1.4 var(--font-body),
+    sans-serif;
+}
+.trip-date {
+  min-width: 0;
+}
+.trip-date [data-slot='field'] {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.trip-value,
+.trip-date .date-trigger {
+  height: 52px;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--input);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--navy);
+  padding: 0 14px;
+  position: relative;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  gap: 10px;
+  transition: border-color 0.2s;
+}
+.trip-date .date-trigger {
+  width: 100%;
+  justify-content: space-between;
+}
+.trip-value select {
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  outline-offset: 2px;
+  min-width: 0;
+  padding: 0 34px 0 40px;
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+}
+.trip-value > svg:first-child {
+  width: 17px;
+  height: 17px;
+  color: var(--stone);
+  pointer-events: none;
+}
+.trip-value > svg:last-child {
+  height: 14px;
+  width: 14px;
+  margin-left: auto;
+  pointer-events: none;
+}
+.trip-search-button {
+  min-height: 52px;
+  height: 52px;
+  padding-inline: 26px;
+}
+.trip-field:hover .trip-value,
+.trip-field:focus-within .trip-value,
+.trip-date .date-trigger:hover {
+  border-color: var(--navy);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (min-width: 701px) {
+  .hero-frame[data-layout='wide'] img {
+    object-position: var(--focus-wide, 70% 60%);
+  }
+  /* Square road portraits sit on the right and dissolve into the navy on the left. */
+  .hero-frame[data-layout='panel'] {
+    left: 36%;
+  }
+  .hero-frame[data-layout='panel']::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      var(--navy-deep) 0%,
+      color-mix(in srgb, var(--navy-deep) 58%, transparent) 26%,
+      transparent 62%
+    );
+  }
+}
+@media (max-width: 1179px) {
+  .hero-copy {
+    max-width: 74%;
+  }
+  .trip-search-fields {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .trip-search-button {
+    grid-column: 1 / -1;
+  }
+  .trip-planner {
+    padding: 20px 22px 24px;
+  }
+}
+@media (max-width: 900px) {
+  .hero-progress {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  .hero {
+    --hero-overlap: 44px;
+    --hero-photo: min(88vw, 430px);
+  }
+  /* On phones the copy sits on solid navy and the car gets its own uncropped frame below. */
+  .hero-media,
+  .hero-scrim {
+    inset: auto 0 0;
+    height: var(--hero-photo);
+  }
+  .hero-scrim {
+    background:
+      linear-gradient(180deg, var(--navy-deep) 0%, transparent 40%),
+      linear-gradient(0deg, color-mix(in srgb, var(--navy-deep) 88%, transparent) 0%, transparent 46%);
+  }
+  .hero-inner {
+    min-height: 0;
+    justify-content: flex-start;
+    padding-top: calc(var(--header-h) + 20px);
+    padding-bottom: calc(var(--hero-photo) - 28px);
+  }
+  .hero-copy {
+    max-width: 100%;
+  }
+  .hero-kicker {
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    gap: 10px;
+  }
+  .hero-kicker::before {
+    width: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(2.75rem, 14.2vw, 4.5rem);
+    margin-top: 14px;
+  }
+  .hero-lead {
+    font-size: 1rem;
+    line-height: 1.55;
+    margin-top: 16px;
+  }
+  .hero-actions {
+    margin-top: 22px;
+    gap: 10px;
+  }
+  .hero-actions .action {
+    flex: 1 1 0;
+    min-height: 52px;
+    padding-inline: 14px;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+  }
+  .hero-foot {
+    bottom: calc(var(--hero-overlap) + 16px);
+    gap: 10px;
+  }
+  .hero-slides {
+    gap: 8px;
+  }
+  .hero-slides button {
+    width: 44px;
+    height: 44px;
+  }
+  .hero-count {
+    display: none;
+  }
+  .hero-car {
+    min-width: 0;
+    min-height: 52px;
+    gap: 10px;
+    padding: 6px 6px 6px 14px;
+  }
+  .hero-car-label {
+    display: none;
+  }
+  .hero-car strong {
+    font-size: 1.25rem;
+    white-space: nowrap;
+  }
+  .hero-car-rate {
+    padding-left: 10px;
+    font-size: 0.875rem;
+  }
+  .hero-car-arrow {
+    width: 38px;
+    height: 38px;
+  }
+  .trip-planner-wrap {
+    margin-top: -44px;
+    padding-inline: 14px;
+  }
+  .trip-planner {
+    padding: 18px 16px 20px;
+  }
+  .trip-planner-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .trip-planner-head p {
+    font-size: 0.875rem;
+  }
+  .trip-mode-switch {
+    width: 100%;
+  }
+  .trip-mode-switch label {
+    flex: 1;
+  }
+  .trip-mode-switch label > span {
+    min-height: 44px;
+    padding-inline: 10px;
+  }
+  .trip-search-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 12px;
+    margin-top: 16px;
+  }
+  .trip-value,
+  .trip-date .date-trigger {
+    height: 50px;
+    min-height: 50px;
+    padding-inline: 12px;
+  }
+  .trip-value select {
+    padding-left: 36px;
+    padding-right: 28px;
+    font-size: 1rem;
+  }
+  .trip-search-button {
+    grid-column: 1 / -1;
+    height: 54px;
+    min-height: 54px;
+    margin-top: 2px;
+  }
+}
+@media (max-width: 380px) {
+  .hero-car-rate small {
+    display: none;
+  }
+  .hero-actions .action {
+    padding-inline: 10px;
+    gap: 6px;
+  }
+  .trip-search-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

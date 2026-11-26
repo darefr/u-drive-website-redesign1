@@ -1,0 +1,361 @@
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(35px, 7vw, 120px);
+  padding-block: 20px 48px;
+  align-items: start;
+}
+.contact-layout .page-intro {
+  padding-block: 0 24px;
+}
+.contact-layout .page-title {
+  font-size: clamp(4rem, 6.5vw, 7.5rem);
+}
+.contact-channels > a {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-block: 17px;
+  border-top: 1px solid var(--border);
+}
+.contact-channels > a > svg:first-child {
+  width: 20px;
+  height: 20px;
+  color: var(--stone);
+}
+.contact-channels > a > svg:last-child {
+  width: 16px;
+  margin-left: auto;
+}
+.contact-channels span {
+  font-size: clamp(0.93rem, 1.4vw, 1.35rem);
+  font-weight: 570;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+.contact-channels small {
+  display: block;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  font-weight: 650;
+  color: var(--stone);
+}
+.contact-organic {
+  padding-block: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--stone);
+}
+.enquiry-panel {
+  background: var(--white);
+  color: var(--navy);
+  border: 1px solid var(--border);
+  padding: clamp(20px, 3vw, 45px);
+}
+.enquiry-panel > .overline {
+  color: var(--stone);
+}
+.enquiry-panel > h2 {
+  font-size: clamp(1.65rem, 2.1vw, 2.4rem);
+  font-weight: 580;
+  letter-spacing: -0.055em;
+  margin-block: 7px 23px;
+  line-height: 1.15;
+}
+.enquiry-hint {
+  padding-block: 16px;
+}
+.enquiry-preview {
+  background: var(--paper);
+  color: var(--navy);
+  white-space: pre-wrap;
+  padding: 18px;
+  font-size: 0.93rem;
+  overflow-wrap: anywhere;
+}
+.enquiry-receipt p {
+  margin-block: 15px;
+}
+.contact-booking,
+.about-contact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding-block: 28px;
+  border-top: 1px solid var(--border);
+}
+.contact-booking h2 {
+  font-size: clamp(1.3rem, 1.9vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+.contact-booking p {
+  color: var(--stone);
+  font-size: 0.94rem;
+}
+.about-spread {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(34px, 6.7vw, 120px);
+  align-items: center;
+  padding-block: 20px 55px;
+}
+.about-spread .page-title {
+  font-size: clamp(4.4rem, 7.3vw, 8.5rem);
+}
+.about-lead {
+  font-size: clamp(1.2rem, 1.65vw, 1.8rem);
+  font-weight: 520;
+  letter-spacing: -0.035em;
+  line-height: 1.45;
+  max-width: 34ch;
+}
+.about-spread .text-action {
+  margin-top: 16px;
+}
+.about-spread figure {
+  position: relative;
+  aspect-ratio: 1.1;
+}
+.about-spread figure img {
+  object-fit: cover;
+}
+.about-spread figcaption {
+  position: absolute;
+  bottom: 17px;
+  left: 17px;
+  color: var(--white);
+  background: var(--navy);
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  padding: 8px 10px;
+}
+.about-principles {
+  background: var(--navy);
+  color: var(--white);
+}
+.about-entries article {
+  border-top: 1px solid var(--dark-line);
+  padding-block: 19px;
+}
+.about-entries h3 {
+  font-size: 1.3rem;
+  font-weight: 570;
+  letter-spacing: -0.035em;
+}
+.about-entries p {
+  margin-top: 7px;
+  color: var(--silver);
+  font-size: 0.96rem;
+}
+.about-contact {
+  padding-block: 40px;
+}
+.faq-browser {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.55fr) minmax(0, 1.5fr);
+  gap: clamp(30px, 5vw, 80px);
+  padding-block: 8px 50px;
+  align-items: start;
+}
+.faq-topics {
+  background: var(--white);
+  color: var(--navy);
+  padding: 20px;
+}
+.faq-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--input);
+}
+.faq-search input {
+  width: 100%;
+  min-width: 0;
+  font-size: 0.9rem;
+  min-height: 45px;
+}
+.faq-search button {
+  min-height: 44px;
+}
+.faq-topics > .overline {
+  font-size: 0.58rem;
+  color: var(--stone);
+  margin-block: 23px 8px;
+}
+.topic-list {
+  display: flex;
+  flex-direction: column;
+}
+.topic-list button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  text-align: left;
+  gap: 8px;
+  padding-inline: 10px;
+  font-size: 0.91rem;
+}
+.topic-list button[aria-pressed='true'] {
+  background: var(--navy);
+  color: var(--white);
+}
+.topic-list button:not([aria-pressed='true']) svg {
+  opacity: 0;
+}
+.faq-count {
+  color: var(--stone);
+  font-size: 0.82rem;
+  margin-bottom: 12px;
+}
+.faq-empty {
+  padding-block: 18px;
+}
+.faq-empty h2 {
+  font-size: 1.25rem;
+  font-weight: 650;
+}
+.faq-empty p {
+  color: var(--stone);
+  margin-block: 7px 16px;
+}
+.handoff-check {
+  background: var(--paper);
+  color: var(--navy);
+  padding: 16px;
+  margin-block: 12px;
+}
+.handoff-check p,
+.review-intro,
+.request-receipt > p {
+  color: var(--stone);
+  font-size: 0.92rem;
+}
+.handoff-check p strong {
+  display: block;
+  color: var(--navy);
+}
+.handoff-check .action {
+  margin-top: 10px;
+}
+.review-intro {
+  margin-bottom: 12px;
+}
+.request-receipt .review-list {
+  margin-block: 14px 19px;
+}
+.receipt-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  font-size: 0.67rem;
+  background: var(--gold);
+  color: var(--navy);
+  padding: 7px 10px;
+  margin-bottom: 16px;
+}
+.receipt-links,
+.edit-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 9px;
+}
+.edit-links .back-link {
+  font-size: 0.82rem;
+}
+.embedded-estimate {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 3px 8px;
+  background: var(--paper);
+  color: var(--navy);
+  padding: 13px;
+  margin-top: 17px;
+}
+.embedded-estimate > span {
+  font-size: 0.85rem;
+}
+.embedded-estimate > strong {
+  font-weight: 650;
+}
+.embedded-estimate > small {
+  grid-column: 1/-1;
+  color: var(--stone);
+  font-size: 0.79rem;
+}
+.embedded-booking [disabled] {
+  opacity: 1;
+  color: var(--navy);
+  background: var(--paper);
+}
+@media (max-width: 760px) {
+  .contact-layout,
+  .about-spread,
+  .faq-browser {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .contact-layout {
+    padding-block: 14px 28px;
+  }
+  .contact-layout .page-title {
+    font-size: clamp(3.45rem, 12.8vw, 5rem);
+  }
+  .contact-organic {
+    padding-bottom: 0;
+  }
+  .contact-channels > a {
+    padding-block: 13px;
+    gap: 12px;
+  }
+  .contact-channels span {
+    font-size: 0.96rem;
+  }
+  .contact-booking,
+  .about-contact {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .enquiry-panel {
+    padding: 20px;
+  }
+  .about-spread {
+    padding-block: 16px 35px;
+  }
+  .about-spread figure {
+    aspect-ratio: 1.55;
+  }
+  .about-spread .page-title {
+    font-size: clamp(4.2rem, 14vw, 5.7rem);
+  }
+  .faq-topics {
+    padding: 15px;
+  }
+  .faq-topics > .overline {
+    margin-block: 15px 7px;
+  }
+  .topic-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .topic-list button {
+    font-size: 0.79rem;
+    padding-inline: 10px;
+    min-height: 40px;
+  }
+  .topic-list button svg {
+    display: none;
+  }
+  .faq-browser {
+    padding-bottom: 32px;
+  }
+}

@@ -1,0 +1,351 @@
+.home-story {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  align-items: stretch;
+  gap: clamp(30px, 6vw, 98px);
+}
+.home-story-image {
+  position: relative;
+  min-height: 350px;
+  border-radius: 7px;
+  overflow: hidden;
+  background: var(--navy);
+}
+.home-story-image > img {
+  object-fit: cover;
+}
+.story-place {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: color-mix(in srgb, var(--navy) 77%, transparent);
+  color: var(--white);
+  border-radius: 4px;
+  padding: 6px 9px;
+  font-size: 12px;
+}
+.home-story-words {
+  padding-block: 8px;
+}
+.story-points {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-block: 22px 12px;
+}
+.story-points > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.story-points svg {
+  width: 20px;
+  flex: none;
+  margin-top: 2px;
+  color: var(--stone);
+}
+.story-points span {
+  color: var(--stone);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.story-points strong {
+  display: block;
+  color: var(--navy);
+  font-weight: 650;
+  font-size: 15px;
+}
+.capability-band {
+  background: var(--navy);
+  color: var(--white);
+  padding-block: 35px;
+}
+.capability-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.capability {
+  border-right: 1px solid var(--dark-line);
+  padding-left: clamp(16px, 3vw, 45px);
+}
+.capability:first-child {
+  padding-left: 0;
+}
+.capability:last-child {
+  border-right: 0;
+}
+.capability-label {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  font-size: 12px;
+  letter-spacing: 0.035em;
+  color: var(--silver);
+}
+.capability-label svg {
+  color: var(--gold);
+}
+.capability > strong {
+  display: block;
+  font:
+    650 clamp(31px, 3.3vw, 55px)/1.1 var(--font-body-face),
+    sans-serif;
+  letter-spacing: -0.07em;
+  font-variant-numeric: tabular-nums;
+  margin-block: 12px 5px;
+}
+.capability > strong small {
+  font-size: 0.42em;
+  letter-spacing: -0.01em;
+  color: var(--gold);
+}
+.capability > p {
+  font-size: 13px;
+  color: var(--silver);
+}
+.floating-contact {
+  position: fixed;
+  right: 21px;
+  bottom: 21px;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.contact-fab {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--gold);
+  border: 1px solid color-mix(in srgb, var(--white) 30%, var(--navy));
+  box-shadow: 0 3px 15px color-mix(in srgb, var(--navy) 22%, transparent);
+  transition:
+    transform 0.18s,
+    background 0.18s;
+}
+.contact-fab:hover {
+  transform: translateY(-2px);
+  background: var(--secondary);
+}
+.contact-popover {
+  width: min(315px, calc(100vw - 34px));
+  padding: 23px;
+  background: var(--white);
+  color: var(--navy);
+  border-radius: 9px;
+  box-shadow: 0 10px 45px color-mix(in srgb, var(--navy) 23%, transparent);
+  border: 1px solid var(--border);
+  animation: frame-in 0.2s ease-out;
+}
+.contact-popover .overline {
+  color: var(--stone);
+}
+.contact-popover h2 {
+  font-weight: 650;
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.055em;
+  margin-block: 9px;
+}
+.contact-popover > p:not(.overline) {
+  font-size: 14px;
+  color: var(--stone);
+  margin-bottom: 14px;
+}
+.contact-popover > a {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 45px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 550;
+}
+.contact-popover > a span {
+  flex: 1;
+}
+.contact-popover > a:last-child {
+  font-size: 13px;
+  color: var(--stone);
+}
+.contact-popover > a:hover {
+  color: var(--navy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+body:has(dialog[open]) .floating-contact {
+  visibility: hidden;
+}
+.photo-cta {
+  position: relative;
+  isolation: isolate;
+  background: var(--navy);
+  color: var(--white);
+}
+.photo-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: url('/images/nepal-road.webp') center 52% / cover no-repeat;
+}
+.photo-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--navy) 88%, transparent),
+    color-mix(in srgb, var(--navy) 58%, transparent)
+  );
+}
+.photo-cta .closing-inner {
+  padding-block: 43px;
+}
+.photo-cta .overline {
+  color: var(--gold);
+}
+.photo-cta h2 {
+  font-family: var(--font-body-face), sans-serif;
+  font-size: clamp(36px, 4.6vw, 68px);
+  letter-spacing: -0.062em;
+  font-weight: 640;
+  text-transform: none;
+}
+.photo-cta .action {
+  border-radius: 5px;
+}
+.process-index {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.footer-base {
+  padding-right: 45px;
+}
+.drive-header .drawer-links a {
+  min-height: 45px;
+}
+.rental-modes-section .mode-spread {
+  border-radius: 7px;
+}
+.rental-modes-section .mode-spread-copy h3 {
+  font-family: var(--font-body-face), sans-serif;
+  font-size: clamp(32px, 3.5vw, 55px);
+  font-weight: 620;
+  letter-spacing: -0.055em;
+  text-transform: none;
+}
+@media (max-width: 850px) {
+  .capability {
+    padding-left: 15px;
+  }
+  .capability-label {
+    gap: 6px;
+  }
+  .capability > p {
+    font-size: 12px;
+  }
+  .home-story {
+    gap: 26px;
+  }
+}
+@media (max-width: 700px) {
+  .home-story {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .home-story-image {
+    min-height: 240px;
+    max-height: 300px;
+  }
+  .home-story-words {
+    padding: 0;
+  }
+  .capability-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 23px 0;
+  }
+  .capability:nth-child(3) {
+    padding-left: 0;
+  }
+  .capability:nth-child(2) {
+    border-right: 0;
+  }
+  .capability > strong {
+    font-size: 34px;
+  }
+  .capability-band {
+    padding-block: 26px;
+  }
+  .floating-contact {
+    right: 12px;
+    bottom: max(13px, env(safe-area-inset-bottom));
+  }
+  .floating-contact[data-model='true'] {
+    bottom: 83px;
+  }
+  .contact-fab {
+    width: 43px;
+    height: 43px;
+  }
+  .contact-fab svg {
+    width: 19px;
+  }
+  .home-story .body-copy {
+    font-size: 15px;
+  }
+  .photo-cta .closing-inner {
+    padding-block: 32px;
+  }
+  .footer-base {
+    padding-right: 36px;
+  }
+  .process-index {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .drive-header .drawer-links a {
+    min-height: 44px;
+    font-size: 16px;
+  }
+}
+@media (max-width: 600px) {
+  .booking-form-panel .form-two-col {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+  }
+  .review-browse button,
+  .rail-controls button {
+    width: 44px;
+    height: 44px;
+  }
+  .contact-popover {
+    max-height: calc(100dvh - 155px);
+    overflow-y: auto;
+  }
+  .floating-contact:has(.contact-popover) {
+    bottom: 14px !important;
+  }
+  .mode-car-name img {
+    height: auto;
+  }
+  .trip-planner-head h2 {
+    white-space: nowrap;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
